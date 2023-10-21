@@ -41,7 +41,7 @@ def run_method():
 def run_method():
     """ """
     with GitContext() as g:
-        logger.info(g.refresh_from_main())
+        g.refresh_from_main()
 
 
 @namespace_app.command("build")
