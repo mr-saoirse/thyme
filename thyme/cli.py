@@ -31,10 +31,12 @@ def run_method(
 
 
 @git_app.command("push")
-def run_method():
+def run_method(
+    review: typing.Optional[bool] = typer.Option(False, "--review", "-r"),
+):
     """ """
     with GitContext() as g:
-        logger.info(g.push())
+        logger.info(g.push(auto_merge=(not review)))
 
 
 @git_app.command("rebase")
