@@ -6,6 +6,7 @@ import thyme
 import typing
 import subprocess
 
+# the full repo project with the readme and all
 LOCAL_DIR = f"{Path(thyme.__file__).parent.parent}"
 
 
