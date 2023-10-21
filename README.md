@@ -11,7 +11,7 @@ An example workflow
 poetry run thyme ns build -p one
 #git context
 #get the changes locally or from remote
-poetry run thyme git changes --remote True
+poetry run thyme git changes --remote  
 #push the changes with git cli, auto merge the branch to main
 poetry run thyme git push
 #if you want to not auto merge and review the changes...
