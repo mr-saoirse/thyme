@@ -6,7 +6,7 @@ import thyme
 import typing
 import subprocess
 
-LOCAL_DIR = f"{Path(thyme.__file__).parent}"
+LOCAL_DIR = f"{Path(thyme.__file__).parent.parent}"
 
 
 def parse_fenced_code_blocks(input_string, try_parse=True, select_type="python"):

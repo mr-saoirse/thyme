@@ -1,6 +1,24 @@
 # thyme: talking in types
 
 This is an experimental type only library. How an LLM can be used to build a library of validating types with Pydantic. The AI is used to make all edits.
+This is a completely isolated repo. We break some rules because we assume that AI automation can be used to modify the repo and push changes to Git at will.
+This is not completely realistic today and that is why its a stand alone repo. In the limit however, we can manage certain functions completely autonomously. This repos explores which.
+
+An example workflow
+
+```python
+#this will build all the types in the namespace "one" from the diagram and doc string in init.py
+poetry run thyme ns build -p one
+#git context
+#get the changes locally or from remote
+poetry run thyme git changes --remote True
+#push the changes with git cli, auto merge the branch to main
+poetry run thyme git push
+
+#we can also rebase the main branch
+poetry run thyme git rebase
+
+```
 
 The flow is as follows
 
