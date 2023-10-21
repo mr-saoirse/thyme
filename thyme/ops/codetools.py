@@ -120,7 +120,7 @@ class GitContext:
         self(f"git rebase origin/{self._main_branch}")
 
         # TODO: here we assume the provider is github so we need to generalize this part
-        self(f"git push origin {self._current_branch}")
+        self(f"git push origin {self._current_branch} --force")
         self(f"""gh pr create --title "{pr_name}" --body "{pr_change_note}" """)
         if auto_merge:
             self("gh pr merge --auto --rebase")
