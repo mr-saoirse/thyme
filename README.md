@@ -1,6 +1,7 @@
 # thyme: talking in types
 
 This is an experimental type only library. How an LLM can be used to build a library of validating types with Pydantic. The AI is used to make all edits.
+
 This is a completely isolated repo. We break some rules because we assume that AI automation can be used to modify the repo and push changes to Git at will.
 This is not completely realistic today and that is why its a stand alone repo. In the limit however, we can manage certain functions completely autonomously. This repos explores which.
 
@@ -26,16 +27,16 @@ The flow is as follows
 
 - We draw a diagram in each namespace for the types
 - We get all the types that are there and we ask the LLM to generate a set of class files for each diagram
-- the root validator by convention also calls out to a dumpy root validator for each type that the developer can override
+- the root validator by convention also calls out to a dummy root validator for each type that the developer can override
 - we inherit from a common base for the namespace which can be changed per namespace
 - namespaces are small enough that we can be modular and compact e.g. 5-10 types at most per namespace
 - We take hints from reference types
-- We can describe validations in "about" classes which are added to docstrings of the type = the init py carries descriptions for the namespace
-- we write tests to make sure that the types are correct and validation is correct
-- We ask the agent to create ops in the ops library -they are always documented properly with doc strings and indexed
+- We can describe validations in "about" classes which are added to docstrings of the type. the init.py carries descriptions for the namespace
+- we write tests to make sure that the types are correct and validation is correct (later we add tests in our git actions build)
+- We ask the agent to create ops in the ops library -they are always documented properly with doc strings and can be "indexed"
 - Indexed ops can be used by the agent too if needed to solve other tasks
 
-This means that the role of the developer is elevated to design and testing only
+This means that the role of the developer is elevated/demoted to design and testing only and we are only allow write code by asking the LLM to do it, one way or another.
 
 ## Special fields for interfaces - teaching the LLM more semantics
 
