@@ -95,7 +95,7 @@ class GitContext:
             return [c for c in changes if c[: len(prefix)] == prefix if c != ""]
         return changes
 
-    def refresh_from_main(self, branch=None):
+    def rebase_main(self, branch=None):
         """
         We always have the parent root to where we clone things
         and if we know the name of the
@@ -114,7 +114,7 @@ class GitContext:
         """ """
 
         logger.info(f"Committing from branch {self._current_branch}")
-        self.commit_all()
+        self.rebase_main()
         # TODO:> todo determine what branch we are actually meaning to be on
         self(f"git rebase origin/{self._main_branch}")
 
@@ -127,7 +127,7 @@ class GitContext:
         else:
             logger.info(f"Pushed pr [{pr_name}] needs review")
 
-    def commit_all(self, message=None, push=False):
+    def commit_all(self, message=None):
         # for testing only - we can test the flow without changes
         # self("touch file.txt")
         message = message or "automated commit"
@@ -135,9 +135,6 @@ class GitContext:
         chk = self(f'git commit -m "{message}"')
         # TODO: check if managed to commit the changes
         changes = self.get_changes()
-
-        if push:
-            self.push()
 
         return changes
 
