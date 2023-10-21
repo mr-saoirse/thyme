@@ -109,9 +109,7 @@ class GitContext:
         self("git rebase main")
 
     def push(
-        self,
-        pr_name="AI Pushed",
-        pr_change_note="AI comments TODO",
+        self, pr_name="AI Pushed", pr_change_note="AI comments TODO", auto_merge=True
     ):
         """ """
 
@@ -123,7 +121,8 @@ class GitContext:
         # TODO: here we assume the provider is github so we need to generalize this part
         self(f"git push origin {self._current_branch}")
         self(f"""gh pr create --title "{pr_name}" --body "{pr_change_note}" """)
-        self("gh pr merge --auto --rebase")
+        if auto_merge:
+            self("gh pr merge --auto --rebase")
         logger.info(f"Pushed pr [{pr_name}] and auto merged (pending checks)")
 
     def commit_all(self, message=None, push=False):
