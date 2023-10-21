@@ -43,7 +43,7 @@ def run_method(
 def run_method():
     """ """
     with GitContext() as g:
-        g.refresh_from_main()
+        g.rebase_main()
 
 
 @namespace_app.command("build")
