@@ -16,9 +16,32 @@ app.add_typer(git_app, name="git")
 
 
 @git_app.command("changes")
-def run_method():
+def run_method(
+    against_origin: typing.Optional[bool] = typer.Option(False, "--remote", "-r"),
+):
+    """
+
+    get the local branch changes since commit or the changes from main
+
+    poetry run thyme git changes --remote
+    poetry run thyme git changes
+    """
     with GitContext() as g:
-        logger.info(g.get_changes())
+        logger.info(g.get_changes(against_origin=against_origin))
+
+
+@git_app.command("push")
+def run_method():
+    """ """
+    with GitContext() as g:
+        logger.info(g.push())
+
+
+@git_app.command("rebase")
+def run_method():
+    """ """
+    with GitContext() as g:
+        logger.info(g.refresh_from_main())
 
 
 @namespace_app.command("build")

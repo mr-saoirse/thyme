@@ -95,11 +95,12 @@ class GitContext:
             return [c for c in changes if c[: len(prefix)] == prefix if c != ""]
         return changes
 
-    def refresh_from_main(self, branch):
+    def refresh_from_main(self, branch=None):
         """
         We always have the parent root to where we clone things
         and if we know the name of the
         """
+        branch = branch or self._current_branch
         self.commit_all()
         self(f"git checkout main")
         self(f"git fetch")
