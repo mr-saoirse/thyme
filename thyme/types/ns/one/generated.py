@@ -1,16 +1,23 @@
 
 from enum import Enum
-from pydantic import BaseModel, root_validator, validator
-from typing import List
+from pydantic import BaseModel, root_validator, Field
+from typing import List, Optional
 
-class KanbanStage(Enum):
-    ToDo = 'ToDo'
-    Done = 'Done'
-    InProgress = 'InProgress'
-    Blocked = 'Blocked'
+class Stage(Enum):
+    ToDo = "ToDo"
+    Done = "Done"
+    InProgress = "InProgress"
+    Blocked = "Blocked"
+
 
 class Kanban(BaseModel):
-    stage: KanbanStage = KanbanStage.ToDo
+    stage: Stage = Field(default=Stage.ToDo)
+
+    @root_validator(pre=True)
+    def default_stage(cls, values):
+        if 'stage' not in values:
+            values['stage'] = Stage.ToDo
+        return values
 
     class Config:
         schema_extra = {
@@ -19,25 +26,23 @@ class Kanban(BaseModel):
             }
         }
 
-    @root_validator(pre=True)
-    def check_stage(cls, values):
-        assert 'stage' in values, 'stage must be provided'
-        assert values['stage'] == KanbanStage.ToDo, 'stage must be ToDo by default'
-        return values
 
 class Task(BaseModel):
     name: str
+    description: Optional[str] = None
     kanban: Kanban
 
     class Config:
         schema_extra = {
             "example": {
-                "name": "Design layer architecture",
+                "name": "Test Task",
+                "description": "This is a test task",
                 "kanban": {
                     "stage": "ToDo"
                 }
             }
         }
+
 
 class Actor(BaseModel):
     name: str
@@ -46,10 +51,11 @@ class Actor(BaseModel):
     class Config:
         schema_extra = {
             "example": {
-                "name": "Mary Johnson",
+                "name": "John",
                 "tasks": [
                     {
-                        "name": "Set up deployment pipeline",
+                        "name": "Test Task",
+                        "description": "This is a test task",
                         "kanban": {
                             "stage": "ToDo"
                         }
