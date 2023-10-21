@@ -123,7 +123,9 @@ class GitContext:
         self(f"""gh pr create --title "{pr_name}" --body "{pr_change_note}" """)
         if auto_merge:
             self("gh pr merge --auto --rebase")
-        logger.info(f"Pushed pr [{pr_name}] and auto merged (pending checks)")
+            logger.info(f"Pushed pr [{pr_name}] and auto merged (pending checks)")
+        else:
+            logger.info(f"Pushed pr [{pr_name}] needs review")
 
     def commit_all(self, message=None, push=False):
         # for testing only - we can test the flow without changes
