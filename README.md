@@ -14,7 +14,7 @@ poetry run thyme ns build -p one
 poetry run thyme git changes --remote True
 #push the changes with git cli, auto merge the branch to main
 poetry run thyme git push
-#if you want to not auto merge and review the changes..
+#if you want to not auto merge and review the changes...
 poetry run thyme git push --review
 
 #we can also rebase the main branch at any time
